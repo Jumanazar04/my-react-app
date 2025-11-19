@@ -1,0 +1,7 @@
+
+.movie {
+    width: 1000px;
+    min-height: 100px;
+    padding: 20px;
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, .15);
+}

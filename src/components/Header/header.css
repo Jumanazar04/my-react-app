@@ -1,0 +1,22 @@
+
+
+.header {
+    font-size: 10px;
+    width: 1000px;
+    min-height: 100px;
+    padding: 20px;
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, .15);
+    gap: 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title_1 {
+    font-size: 8px !important;
+    font-weight: 600;
+}
+
+.title_2 {
+    font-size: 6px !important;
+    font-weight: 500;
+}
