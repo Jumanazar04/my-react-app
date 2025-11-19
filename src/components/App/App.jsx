@@ -9,9 +9,9 @@ import './App.css';
 function App() {
 
   const [state, setState] = useState([
-    {like: false, name: 'Empire of Osman', views: 988, favorite: false, id: 1 },
+    {like: false, name: 'Empire of Osman', views: 988, favorite: true, id: 1 },
     {like: false, name: 'The Great Adventure', views: 1500, favorite: false, id: 2 },
-    {like: false, name: 'Mystery Island', views: 750, favorite: false, id: 3 },
+    {like: false, name: 'Mystery Island', views: 750, favorite: true, id: 3 },
     {like: false, name: 'Space Odyssey', views: 1200, favorite: false, id: 4 },
     {like: false, name: 'Romance in Paris', views: 640, favorite: false, id: 5 },
     {like: false, name: 'The Last Kingdom', views: 2000, favorite: false, id: 6 },
@@ -21,7 +21,7 @@ function App() {
     {like: false, name: 'City Lights', views: 1750, favorite: false, id: 10 },
   ]);
   const [term, setTerm] = useState('');
-  const [filter, setFilter] = useState('favorite');
+  const [filter, setFilter] = useState('');
 
   const addForm = (e, item) => {
     e.preventDefault();

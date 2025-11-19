@@ -2,6 +2,7 @@ import './movie-listitem.css';
 
 function MovieListItem ({ name, views, onDelete, onToggleProp, favorite, like }) { 
     return (
+        <>
         <li className={` list-group-item d-flex justify-content-between ${favorite && 'fovorite'} ${like && 'like'}`} >
             <span onClick={onToggleProp} className='list-group-item-label' data-toggle='like'>{name}</span>
             <input type="number" className='p-1 list-group-item-input' defaultValue={views} />
@@ -17,6 +18,7 @@ function MovieListItem ({ name, views, onDelete, onToggleProp, favorite, like })
                 </button>
             </div>
         </li>
+        </>
     )
 }
 

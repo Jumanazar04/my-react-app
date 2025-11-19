@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Search.css'
 
-function Search({ onUpdateSearch, updatefilterHendler, filter }) {
+function Search({ onUpdateSearch, updatefilterHendler, filter = 'all' }) {
     const [term, setTerm] = useState('');
 
     function onUpdateTerm(e){
@@ -25,7 +25,7 @@ function Search({ onUpdateSearch, updatefilterHendler, filter }) {
                 return (
                     <button 
                         type='button' 
-                        className={`btn ${filter === name ? 'btn-dark' : 'btn-outline-dark'}`}
+                        className={`btn  ${filter === name ? 'btn-dark' : 'btn-outline-dark'}`}
                         key={name}
                         onClick={() => updatefilterHendler(name)}
                     >
