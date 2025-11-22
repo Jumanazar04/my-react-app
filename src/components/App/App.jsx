@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../Header/Header';
 import MovieList from '../Movie-list/Movie-list';
 import MovieAddForm from '../Movies-add-form/Movies-add-form';
@@ -22,6 +22,7 @@ function App() {
   ]);
   const [term, setTerm] = useState('');
   const [filter, setFilter] = useState('');
+  const [isloading, setIsloading] = useState(true);
 
   const addForm = (e, item) => {
     e.preventDefault();
@@ -84,15 +85,35 @@ function App() {
   
   const allMoviesCount = state.length;
   const favoriteMoviesCount = state.filter(item => item.favorite).length;
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then(response => response.json())
+      .then(data => {
+        setIsloading(true);
+        const newMovies = data.slice(15, 25).map(post => ({
+          id: uuidv4(),
+          name: post.title,
+          views: Math.floor(Math.random() * 2000),
+          favorite: false,
+          like: false,
+        }));
+        setState(newMovies);
+    })
+      .catch(error => console.error("Error fetching data:", error))
+      .finally(() => setIsloading(false));
+  }, []);
   
 
   return (
     <div className="app font-monospace mb-4">
       <Header allMoviesCount={allMoviesCount} favoriteMoviesCount={favoriteMoviesCount} />
       <Search onUpdateSearch={onUpdateSearch} updatefilterHendler={updatefilterHendler} filter={filter} />
-
+      {isloading ? <div class="spinner-border mt-4 w-24" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div> :
       <MovieList data1={visibleMovies} onDelete={onDelete} onToggleProp={onToggleProp}/>
-
+      }
       <MovieAddForm addMovie={addForm} />
     </div>
   );
