@@ -5,6 +5,7 @@ import MovieAddForm from '../Movies-add-form/Movies-add-form';
 import Search from '../Search/Search';
 import { v4 as uuidv4 } from 'uuid';
 import './App.css';
+import User from '../hooks/UserHook';
 
 function App() {
 
@@ -109,12 +110,13 @@ function App() {
     <div className="app font-monospace mb-4">
       <Header allMoviesCount={allMoviesCount} favoriteMoviesCount={favoriteMoviesCount} />
       <Search onUpdateSearch={onUpdateSearch} updatefilterHendler={updatefilterHendler} filter={filter} />
-      {isloading ? <div class="spinner-border mt-4 w-24" role="status">
-                      <span class="sr-only">Loading...</span>
+      {isloading ? <div className="spinner-border mt-4 w-24" role="status">
+                      <span className="sr-only">Loading...</span>
                     </div> :
       <MovieList data1={visibleMovies} onDelete={onDelete} onToggleProp={onToggleProp}/>
       }
       <MovieAddForm addMovie={addForm} />
+      <User />
     </div>
   );
 }
