@@ -4,8 +4,7 @@ import './movie-listitem.css';
 
 function MovieListItem ({ name, views, favorite, like, id }) { 
 
-    const {stat, dispatch} = useContext(AppContext);
-    console.log(stat);
+    const {_, dispatch} = useContext(AppContext);
     
 
     function onDelete (){

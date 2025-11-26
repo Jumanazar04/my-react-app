@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './Search.css'
+import { AppContext } from '../../Context/context';
 
-function Search({ onUpdateSearch, updatefilterHendler, filter = 'all' }) {
+function Search() {
     const [term, setTerm] = useState('');
+    const {stat, dispatch} = useContext(AppContext);
 
     function onUpdateTerm(e){
         setTerm(e.target.value.toLowerCase());
-        onUpdateSearch(e.target.value.toLowerCase());
+        dispatch({type: 'ON_TERM', payload: term})
     }
 
     return (
@@ -21,15 +23,15 @@ function Search({ onUpdateSearch, updatefilterHendler, filter = 'all' }) {
                 />  
             </form>
 
-            {btnsArray.map(({name, label}) => {
+            {btnsArray.map((btn) => {
                 return (
                     <button 
                         type='button' 
-                        className={`btn  ${filter === name ? 'btn-dark' : 'btn-outline-dark'}`}
-                        key={name}
-                        onClick={() => updatefilterHendler(name)}
+                        className={`btn  ${stat.filter === btn.name ? 'btn-dark' : 'btn-outline-dark'}`}
+                        key={btn.name}
+                        onClick={() => dispatch({type: 'ON_FILTER', payload: btn.name})}
                     >
-                        {label}
+                        {btn.label}
                     </button>
                 );
             })}
