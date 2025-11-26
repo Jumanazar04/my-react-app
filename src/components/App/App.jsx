@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Header from '../Header/Header';
 import MovieList from '../Movie-list/Movie-list';
 import MovieAddForm from '../Movies-add-form/Movies-add-form';
@@ -6,6 +6,7 @@ import Search from '../Search/Search';
 import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 import User from '../hooks/UserHook';
+import { AppContext } from '../../Context/context';
 
 function App() {
 
@@ -25,32 +26,9 @@ function App() {
   const [filter, setFilter] = useState('');
   const [isloading, setIsloading] = useState(true);
 
-  const addForm = (e, item) => {
-    e.preventDefault();
-    const newItem = {
-      name: item.name,
-      views: item.views,
-      id: uuidv4(),
-      favorite: false,
-      like: false,
-    };
-    setState(prev => [...prev, newItem]);
-    console.log(state);
-    
-  };
 
- function onToggleProp(id, prop){
-  
-      console.log(prop);
-    setState(state.map(item => {
-      if(item.id === id){
-        return {...item, [prop]: !item[prop]}
-      }
-      
-      return item;
-      
-    }))
-  }
+
+
 
   function searchHandler(items, term){
     if(term.length === 0){
@@ -79,10 +57,9 @@ function App() {
   const visibleMovies = filterMovies(searchHandler(state, term), filter);
 
   const updatefilterHendler = (filter) => setFilter(filter);
-   
-  function onDelete(id){
-      setState(state.filter(item => item.id !== id));
-  }
+
+  const {stat, dispatch} = useContext(AppContext)
+  console.log(stat);
   
   const allMoviesCount = state.length;
   const favoriteMoviesCount = state.filter(item => item.favorite).length;
@@ -100,10 +77,11 @@ function App() {
           like: false,
         }));
         setState(newMovies);
+        dispatch( {type: 'GET_DATA', payload: newMovies});
     })
       .catch(error => console.error("Error fetching data:", error))
       .finally(() => setIsloading(false));
-  }, []);
+  }, [dispatch]);
   
 
   return (
@@ -113,9 +91,9 @@ function App() {
       {isloading ? <div className="spinner-border mt-4 w-24" role="status">
                       <span className="sr-only">Loading...</span>
                     </div> :
-      <MovieList data1={visibleMovies} onDelete={onDelete} onToggleProp={onToggleProp}/>
+      <MovieList data1={visibleMovies}/>
       }
-      <MovieAddForm addMovie={addForm} />
+      <MovieAddForm />
       <User />
     </div>
   );

@@ -1,19 +1,22 @@
-import MovieListItem from "./Movie-list-item/Movie-list-item";
 
-function MovieList({ data1, onDelete, onToggleProp }) {
+import { useContext } from "react";
+import MovieListItem from "./Movie-list-item/Movie-list-item";
+import { AppContext } from "../../Context/context";
+
+function MovieList() {
+
+  const {stat, dispatch} = useContext(AppContext)
+  console.log(dispatch);
+  
 
 
   return (
     <ul className='movie-list list-group'>
-      {data1.map(item => (
+      {stat.data.map(item => (
         <MovieListItem
           key={item.id}
-          name={item.name}
-          views={item.views}
-          favorite={item.favorite}
-          like={item.like}
-          onDelete={() => onDelete(item.id)}
-          onToggleProp={(e) => onToggleProp(item.id, e.currentTarget.getAttribute('data-toggle'))}
+          {...item}
+        
         />
       ))}
     </ul>

@@ -1,3 +1,4 @@
+import Button from "../Button/Button";
 import useValidateInput from "./useValidateInput";
 
 function User() {
@@ -23,7 +24,10 @@ function User() {
                     className={`form-control mb-3 ${lastName.validateColor()}`}
                     onChange={lastName.onChange}
                 />
-
+                <Button >
+                    Submit
+                </Button>
+                <Button > Send</Button>
             </form>
         </div>
     );

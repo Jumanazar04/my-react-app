@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './movies-add-form.css';
+import { AppContext } from '../../Context/context';
 
-function MovieAddForm({ addMovie }) {
-
+function MovieAddForm() {
+  const {_, dispatch} = useContext(AppContext)
   const [state, setState] = useState({
     name: '',
     views: ''
@@ -19,6 +20,15 @@ function MovieAddForm({ addMovie }) {
     });
   }
 
+  	const addFormHandler = e => {
+		e.preventDefault()
+		if (state.name === '' || state.views === '') return
+		const data = { name: state.name, views: state.views }
+		dispatch({ type: 'ADD_FORM', payload: data })
+		setState({ name: '', views: '' })
+	}
+
+
   const { name, views } = state;
 
   return (
@@ -26,10 +36,7 @@ function MovieAddForm({ addMovie }) {
       <h3>Yangi kino qo'shish</h3>
       <form
         className='add-form d-flex gap-3'
-        onSubmit={e => {
-          addMovie(e, { name, views });
-          setState({ name: '', views: '' }); 
-        }}
+        onSubmit={addFormHandler}
       >
         <input
           type="text"
